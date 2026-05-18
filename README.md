@@ -1,4 +1,6 @@
 LEARNIFY – Online Tuition Management System
+
+
 📚 Overview
 LEARNIFY is a web-based Online Tuition Management System developed to enhance and digitalize the learning experience for students, teachers, parents, and administrators. The platform provides an efficient, flexible, and user-friendly environment for managing all educational activities in a centralized system.
 The system helps students access courses, live and recorded classes, assignments, and study materials while enabling teachers to manage educational content and track student performance. Parents can monitor academic activities and communicate with teachers, while administrators maintain overall system management and security.
