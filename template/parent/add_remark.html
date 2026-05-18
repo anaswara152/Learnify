@@ -1,0 +1,61 @@
+{% extends 'parent/page.html' %}
+{% block content %}
+
+<div class="container py-5">
+
+    <!-- Page Header -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-primary">Add Remark</h2>
+        <p class="text-muted">Add feedback or note for a student</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <!-- Student Selection -->
+                        <div class="mb-3">
+                            <label class="form-label">Select Student</label>
+                            <select name="student" class="form-select" required>
+                                <option value="">-- Select Child --</option>
+                                {% for s in students %}
+                                    <option value="{{ s.id }}">
+                                        {{ s.user.first_name }} {{ s.user.last_name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Remark -->
+                        <div class="mb-4">
+                            <label class="form-label">Remark</label>
+                            <textarea name="remark"
+                                      class="form-control"
+                                      rows="4"
+                                      placeholder="Enter remark here..."
+                                      required></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">
+                                Submit Remark
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

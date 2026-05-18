@@ -1,0 +1,54 @@
+{% extends 'teacher/page.html' %}
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="card shadow p-4">
+        <h4 class="text-center text-primary mb-4">
+            Attendance Records
+        </h4>
+
+        {% if attendance %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle text-center">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Date</th>
+                        <th>Student Name</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for a in attendance %}
+                    <tr>
+                        <td>{{ a.date|date:"d M Y" }}</td>
+
+                        <td class="text-start">
+                            {{ a.student.first_name }}
+                        </td>
+
+                        <td>
+                            {% if a.status == "present" %}
+                                <span class="badge bg-success">Present</span>
+                            {% elif a.status == "absent" %}
+                                <span class="badge bg-danger">Absent</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Pending</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+            <div class="text-center text-muted">
+                No attendance records available.
+            </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

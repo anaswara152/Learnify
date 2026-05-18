@@ -1,0 +1,100 @@
+{% extends 'teacher/page.html' %}
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="card shadow p-4">
+
+        <h4 class="text-center text-primary mb-4">
+            Marks List
+        </h4>
+
+        <!-- Class Filter -->
+        <form method="get" class="mb-4">
+            <div class="row justify-content-center align-items-end g-3">
+
+                <div class="col-md-4">
+                    <label class="form-label">Select Class</label>
+                    <select name="class_level" class="form-control" required>
+                        <option value="">Select Class</option>
+                        {% for i in class_levels %}
+                            <option value="{{ i }}"
+                                {% if i|stringformat:"s" == selected_class_level|stringformat:"s" %}selected{% endif %}>
+                                Class {{ i }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">
+                        Filter
+                    </button>
+                </div>
+
+            </div>
+        </form>
+
+        <!-- Marks Table -->
+        {% if marks %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle text-center">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Sl No</th>
+                        <th>Student</th>
+                        <th>Subject</th>
+                        <th>Marks</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for m in marks %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+
+                        <td class="text-start">
+                            {{ m.student.user.first_name }} {{ m.student.user.last_name }}
+                        </td>
+
+                        <td>{{ m.subject.subjectname }}</td>
+
+                        <td>
+                            <span class="badge bg-success">
+                                {{ m.marks_obtained }}
+                            </span>
+                        </td>
+
+                        <td>{{ m.total_marks }}</td>
+
+                        <td>
+                            <a href="{% url 'edit_marks' m.id %}"
+                               class="btn btn-sm btn-warning">
+                               Edit
+                            </a>
+
+                            <a href="{% url 'delete_marks' m.id %}"
+                               class="btn btn-sm btn-danger"
+                               onclick="return confirm('Delete mark for {{ m.student.user.first_name }}?')">
+                               Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+        {% else %}
+            <div class="text-center text-muted">
+                No marks found for this class.
+            </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

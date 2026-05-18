@@ -1,0 +1,97 @@
+{% extends 'admin/page.html' %}
+
+{% block content %}
+<div class="container py-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-11 col-md-12 col-sm-12">
+
+            <div class="card shadow-sm border-0">
+
+                <!-- Header -->
+                <div class="card-header bg-danger text-white text-center py-3">
+                    <h4 class="fw-semibold mb-0">
+                        Unpaid Students
+                    </h4>
+                </div>
+
+                <div class="card-body p-4">
+
+                    {% if f %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped text-center align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Sl No</th>
+                                    <th>Student</th>
+                                    <th>Class</th>
+                                    <th>Amount Due</th>
+                                    <th>Amount Paid</th>
+                                    <th>Status</th>
+                                    <th>Due Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for fee in f %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ fee.student.user.first_name }} {{ fee.student.user.last_name }}</td>
+                                    <td>{{ fee.class_level }}</td>
+                                    <td>₹ {{ fee.amount_due }}</td>
+                                    <td>₹ {{ fee.amount_paid }}</td>
+                                    <td>
+                                        <span class="badge bg-danger">
+                                            {{ fee.status|title }}
+                                        </span>
+                                    </td>
+                                    <td>{{ fee.due_date|date:"d M Y" }}</td>
+                                    <td>
+                                        {% if fee.student.status == 'approved' %}
+                                            <a href="{% url 'block_students' fee.student.id %}"
+                                               onclick="return confirm('Block this student?')"
+                                               class="btn btn-sm btn-outline-danger">
+                                                Block
+                                            </a>
+                                        {% elif fee.student.status == 'blocked' %}
+                                            <a href="{% url 'unblock_students' fee.student.id %}"
+                                               onclick="return confirm('Unblock this student?')"
+                                               class="btn btn-sm btn-outline-success">
+                                                Unblock
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                        <div class="alert alert-info text-center">
+                            No unpaid students found.
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .card {
+        border-radius: 14px;
+        background-color: #ffffff;
+    }
+    .badge {
+        font-size: 0.8rem;
+    }
+    .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.8rem;
+    }
+</style>
+{% endblock %}

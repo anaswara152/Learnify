@@ -1,0 +1,150 @@
+{% extends 'parent/page.html' %}
+{% load static %}
+
+{% block title %}My Children Marks{% endblock %}
+
+{% block content %}
+
+<div class="container py-5 mt-5">
+     {% if messages %}
+        {% for message in messages %}
+            <div class="alert 
+                {% if message.tags == 'success' %}
+                    alert-success
+                {% elif message.tags == 'error' %}
+                    alert-danger
+                {% elif message.tags == 'warning' %}
+                    alert-warning
+                {% else %}
+                    alert-info
+                {% endif %}
+                alert-dismissible fade show" role="alert">
+                
+                {{ message }}
+
+                <button type="button" class="btn-close" 
+                        data-bs-dismiss="alert" 
+                        aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="row justify-content-center">
+        <div class="col-lg-11">
+
+            <div class="card shadow border-0 rounded-4">
+
+                <!-- Header -->
+                <div class="card-header bg-white text-center border-0 pt-4 pb-2">
+                    <h4 class="fw-bold text-primary mb-1">
+                        <i class="fa fa-chart-bar me-2"></i>My Children Marks
+                    </h4>
+                    <div class="header-line mx-auto"></div>
+                </div>
+
+                <div class="card-body p-4">
+
+                    {% if marks %}
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle text-center">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Sl No</th>
+                                    <th>Student</th>
+                                    <th>Subject</th>
+                                    <th>Marks</th>
+                                    <th>Total</th>
+                                    <th>Percentage</th>
+                                    <th>Class</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for m in marks %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+
+                                    <td class="fw-semibold">
+                                        {{ m.student.user.first_name }}
+                                    </td>
+
+                                    <td>{{ m.subject.subjectname }}</td>
+
+                                    <td>{{ m.marks_obtained }}</td>
+
+                                    <td>{{ m.total_marks }}</td>
+
+                                    <td>
+                                        {% widthratio m.marks_obtained m.total_marks 100 as percentage %}
+                                        
+                                        {% if percentage >= 75 %}
+                                            <span class="badge bg-success rounded-pill px-3 py-2">
+                                                {{ percentage }}%
+                                            </span>
+                                        {% elif percentage >= 50 %}
+                                            <span class="badge bg-warning text-dark rounded-pill px-3 py-2">
+                                                {{ percentage }}%
+                                            </span>
+                                        {% else %}
+                                            <span class="badge bg-danger rounded-pill px-3 py-2">
+                                                {{ percentage }}%
+                                            </span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
+                                        <span class="badge bg-light text-dark rounded-pill px-3 py-2">
+                                            {{ m.class_level }}
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <a href="{% url 'parent_edit_marks' m.id %}" 
+                                           class="btn btn-sm btn-outline-primary rounded-pill px-3 me-2">
+                                           Edit
+                                        </a>
+
+                                        <a href="{% url 'parent_delete_marks' m.id %}"
+                                           class="btn btn-sm btn-outline-danger rounded-pill px-3"
+                                           onclick="return confirm('Are you sure you want to delete this record?')">
+                                           Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {% else %}
+                        <div class="alert alert-info text-center rounded-3">
+                            No marks added yet.
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f4f6f9;
+    }
+
+    .header-line {
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(to right, #0d6efd, #6610f2);
+        border-radius: 10px;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8f9ff;
+        transition: 0.2s ease-in-out;
+    }
+</style>
+
+{% endblock %}

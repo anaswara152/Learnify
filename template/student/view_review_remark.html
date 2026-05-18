@@ -1,0 +1,100 @@
+{% extends 'student/page.html' %}
+{% load static %}
+
+{% block title %}My Reviews{% endblock %}
+
+{% block content %}
+
+<div class="container py-5" style="margin-top:100px; max-width:1100px;">
+
+    <!-- Page Header -->
+    <div class="text-center mb-4">
+        <h3 class="fw-bold text-primary">My Reviews & Remarks</h3>
+        <p class="text-muted">Track your submitted reviews and parent remarks</p>
+    </div>
+
+    {% if records %}
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-primary text-center">
+                        <tr>
+                            <th>No</th>
+                            <th>My Review</th>
+                            <th>Review Status</th>
+                            <th>Parent Remark</th>
+                            <th>Remark Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="text-center">
+                        {% for r in records %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+
+                            <td class="text-start">
+                                {{ r.review|default:"Not submitted" }}
+                            </td>
+
+                            <!-- Review Status -->
+                            <td>
+                                {% if r.review_status == 'approved' %}
+                                    <span class="badge bg-success px-3 py-2">
+                                        Approved
+                                    </span>
+                                {% elif r.review_status == 'rejected' %}
+                                    <span class="badge bg-danger px-3 py-2">
+                                        Rejected
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-warning text-dark px-3 py-2">
+                                        Pending
+                                    </span>
+                                {% endif %}
+                            </td>
+
+                            <td class="text-start">
+                                {{ r.remark|default:"No remark" }}
+                            </td>
+
+                            <!-- Remark Status -->
+                            <td>
+                                {% if r.remark_status == 'approved' %}
+                                    <span class="badge bg-success px-3 py-2">
+                                        Approved
+                                    </span>
+                                {% elif r.remark_status == 'rejected' %}
+                                    <span class="badge bg-danger px-3 py-2">
+                                        Rejected
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-warning text-dark px-3 py-2">
+                                        Pending
+                                    </span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {{ r.created_at|date:"d M Y" }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+    {% else %}
+        <div class="alert alert-info text-center shadow-sm">
+            No reviews or remarks available.
+        </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

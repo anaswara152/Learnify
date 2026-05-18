@@ -1,0 +1,199 @@
+{% extends 'teacher/page.html' %}
+{% block content %}
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <div class="card shadow p-4">
+
+        <h4 class="text-center text-primary mb-4">
+          Edit Teacher Profile
+        </h4>
+
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-success">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <!-- Basic Info -->
+          <div class="row g-3">
+
+            <div class="col-md-6">
+              <label class="form-label">First Name</label>
+              <input type="text" class="form-control"
+                     value="{{ teacher.user.first_name }}" disabled>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Last Name</label>
+              <input type="text" class="form-control"
+                     value="{{ teacher.user.last_name }}" disabled>
+            </div>
+
+          </div>
+
+          <div class="mt-3">
+            <label class="form-label">Username</label>
+            <input type="text" class="form-control"
+                   value="{{ teacher.user.username }}" disabled>
+          </div>
+
+          <div class="mt-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control"
+                   value="{{ teacher.user.email }}" disabled>
+          </div>
+
+          <!-- Gender -->
+          <div class="mt-3">
+            <label class="form-label d-block">Gender</label>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input"
+                     type="radio"
+                     name="gender"
+                     value="Male"
+                     {% if teacher.gender == "Male" %}checked{% endif %}>
+              <label class="form-check-label">Male</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+              <input class="form-check-input"
+                     type="radio"
+                     name="gender"
+                     value="Female"
+                     {% if teacher.gender == "Female" %}checked{% endif %}>
+              <label class="form-check-label">Female</label>
+            </div>
+          </div>
+
+          <!-- Phone -->
+          <div class="mt-3">
+            <label class="form-label">Phone</label>
+            <input type="text" name="phone"
+                   class="form-control"
+                   value="{{ teacher.phone }}">
+          </div>
+
+          <!-- Qualification -->
+          <div class="mt-3">
+            <label class="form-label">Qualification</label>
+            <select name="qualification" class="form-select">
+              <option value="">Select Qualification</option>
+              <option value="B.Ed" {% if teacher.qualification == "B.Ed" %}selected{% endif %}>B.Ed</option>
+              <option value="M.Ed" {% if teacher.qualification == "M.Ed" %}selected{% endif %}>M.Ed</option>
+              <option value="D.El.Ed / TTC" {% if teacher.qualification == "D.El.Ed / TTC" %}selected{% endif %}>D.El.Ed / TTC</option>
+              <option value="B.Sc" {% if teacher.qualification == "B.Sc" %}selected{% endif %}>B.Sc</option>
+              <option value="M.Sc" {% if teacher.qualification == "M.Sc" %}selected{% endif %}>M.Sc</option>
+              <option value="B.A" {% if teacher.qualification == "B.A" %}selected{% endif %}>B.A</option>
+              <option value="M.A" {% if teacher.qualification == "M.A" %}selected{% endif %}>M.A</option>
+              <option value="B.Com / M.Com" {% if teacher.qualification == "B.Com / M.Com" %}selected{% endif %}>B.Com / M.Com</option>
+              <option value="BCA / MCA" {% if teacher.qualification == "BCA / MCA" %}selected{% endif %}>BCA / MCA</option>
+              <option value="B.Tech / M.Tech" {% if teacher.qualification == "B.Tech / M.Tech" %}selected{% endif %}>B.Tech / M.Tech</option>
+            </select>
+          </div>
+
+          <!-- Experience -->
+          <div class="mt-3">
+            <label class="form-label">Experience (Years)</label>
+            <input type="number"
+                   name="experience"
+                   class="form-control"
+                   value="{{ teacher.experience }}">
+          </div>
+
+          <!-- Profile Picture -->
+          <div class="mt-3">
+            <label class="form-label">Profile Picture</label>
+            <input type="file"
+                   name="profile_picture"
+                   class="form-control"
+                   accept="image/*">
+
+            {% if teacher.profile_picture %}
+              <img src="{{ teacher.profile_picture.url }}"
+                   width="100"
+                   class="mt-2 rounded-circle border">
+            {% endif %}
+          </div>
+
+          <!-- ID Card -->
+          <!-- ID Card & Certificates -->
+<div class="mt-4 row g-3">
+
+  <!-- ID Card -->
+  <div class="col-md-6">
+    <label class="form-label">ID Card</label>
+    <input type="file" name="id_card" class="form-control">
+    
+    {% if teacher.id_card %}
+    <div class="mt-2 d-flex align-items-center gap-2">
+      <span class="badge bg-info text-dark">
+        <i class="bi bi-card-text"></i> Current ID
+      </span>
+      <a href="{{ teacher.id_card.url }}" target="_blank" class="text-decoration-none">
+        View <i class="bi bi-box-arrow-up-right"></i>
+      </a>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Certificates -->
+  <div class="col-md-6">
+    <label class="form-label">Certificates</label>
+    <input type="file" name="certificates" class="form-control">
+    
+    {% if teacher.certificates %}
+    <div class="mt-2 d-flex align-items-center gap-2">
+      <span class="badge bg-success text-white">
+        <i class="bi bi-file-earmark-text"></i> Current Certificate
+      </span>
+      <a href="{{ teacher.certificates.url }}" target="_blank" class="text-decoration-none">
+        View <i class="bi bi-box-arrow-up-right"></i>
+      </a>
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+          <!-- Subjects -->
+          <div class="mt-3">
+            <label class="form-label">Select Subjects</label>
+            <select name="subjects"
+                    class="form-select"
+                    multiple
+                    style="height: 150px;">
+              {% for s in subjects %}
+                <option value="{{ s.id }}"
+                  {% if s in teacher.subjects.all %}selected{% endif %}>
+                  {{ s.subjectname }}
+                </option>
+              {% endfor %}
+            </select>
+            <small class="text-muted">
+              Hold Ctrl to select multiple
+            </small>
+          </div>
+
+          <!-- Submit -->
+          <div class="d-grid mt-4">
+            <button type="submit"
+                    class="btn btn-primary">
+              Update Profile
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'teacher/page.html' %}
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="card shadow p-4">
+        <h4 class="text-center mb-4 text-primary">
+            Homework Submissions
+        </h4>
+
+        {% if hw_submissions %}
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle">
+                    <thead class="table-primary text-center">
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Homework Title</th>
+                            <th>Submitted File</th>
+                            <th>Submitted Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for hw in hw_submissions %}
+                        <tr>
+                            <td>
+                                {{ hw.student.first_name }} {{ hw.student.last_name }}
+                            </td>
+
+                            <td>
+                                {{ hw.homework.title }}
+                            </td>
+
+                            <td class="text-center">
+                                {% if hw.answer_file %}
+                                    <a href="{{ hw.answer_file.url }}" 
+                                       class="btn btn-sm btn-outline-primary"
+                                       target="_blank">
+                                       Download
+                                    </a>
+                                {% else %}
+                                    <span class="text-muted">Not Submitted</span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {{ hw.submitted_at }}
+                            </td>
+
+                            <td class="text-center">
+                                {% if hw.status == 'pending' %}
+                                    <a href="{% url 'submissionstatus' hw.id %}" 
+                                       class="btn btn-sm btn-warning">
+                                       Mark as Reviewed
+                                    </a>
+                                {% else %}
+                                    <span class="badge bg-success">
+                                        {{ hw.status }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        {% else %}
+            <div class="text-center text-danger">
+                No homework submissions available.
+            </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

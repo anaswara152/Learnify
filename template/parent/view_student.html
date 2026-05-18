@@ -1,0 +1,137 @@
+{% extends 'parent/page.html' %}
+{% load static %}
+
+{% block title %}My Students{% endblock %}
+
+{% block content %}
+<div class="container py-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-11 col-md-12">
+
+            <div class="card shadow border-0 custom-card">
+
+                <!-- Header -->
+                <div class="card-header bg-white text-center border-0 pt-4 pb-2">
+                    <h4 class="fw-bold text-primary mb-1">
+                        <i class="fa fa-user-graduate me-2"></i>My Students
+                    </h4>
+                    <div class="header-line mx-auto"></div>
+                </div>
+
+                <div class="card-body p-4">
+
+                    {% if s %}
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle text-center custom-table">
+                            
+                            <thead>
+                                <tr>
+                                    <th>Sl No</th>
+                                    <th>Full Name</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Class</th>
+                                    <th>Gender</th>
+                                    <th>Status / Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for student in s %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+
+                                    <td class="fw-semibold">
+                                        {{ student.user.first_name }} {{ student.user.last_name }}
+                                    </td>
+
+                                    <td>{{ student.user.username }}</td>
+                                    <td>{{ student.user.email }}</td>
+
+                                    <td>
+                                        <span class="badge bg-light text-dark rounded-pill px-3 py-2">
+                                            {{ student.class_level }}
+                                        </span>
+                                    </td>
+
+                                    <td>{{ student.gender }}</td>
+
+
+                                    <td>
+                                        {% if student.status == 'pending' %}
+                                            <a href="{% url 'approve_student' student.id %}" 
+                                               class="btn btn-sm btn-success rounded-pill px-3 me-2">
+                                               Approve
+                                            </a>
+
+                                            <a href="{% url 'remove_students' student.id %}" 
+                                               class="btn btn-sm btn-danger rounded-pill px-3">
+                                               Remove
+                                            </a>
+                                        {% else %}
+                                            <span class="badge bg-success rounded-pill px-3 py-2">
+                                                {{ student.status|title }}
+                                            </span>
+                                        {% endif %}
+                                    </td>
+
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                    {% else %}
+                        <div class="alert alert-info text-center rounded-3">
+                            No students registered under your account yet.
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f4f6f9;
+    }
+
+    .custom-card {
+        border-radius: 16px;
+    }
+
+    .header-line {
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(to right, #0d6efd, #6610f2);
+        border-radius: 10px;
+    }
+
+    .custom-table thead {
+        background-color: #f1f3f6;
+        font-weight: 600;
+    }
+
+    .custom-table tbody tr:hover {
+        background-color: #f8f9ff;
+        transition: 0.2s ease-in-out;
+    }
+
+    .subject-badge {
+        background-color: #e9ecef;
+        color: #495057;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+    }
+
+    .btn-sm {
+        font-size: 0.8rem;
+    }
+</style>
+
+{% endblock %}

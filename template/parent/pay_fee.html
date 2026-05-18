@@ -1,0 +1,82 @@
+{% extends 'parent/page.html' %}
+{% block content %}
+
+<div class="container py-5">
+
+    <!-- Page Header -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-primary">Pay Fee</h2>
+        <p class="text-muted">Secure Payment</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+
+                    <!-- Student Info -->
+                    <div class="mb-4">
+                        <p class="mb-1">
+                            <strong>Student:</strong>
+                            {{ fee.student.user.first_name }} {{ fee.student.user.last_name }}
+                        </p>
+                        <p class="mb-0">
+                            <strong>Amount Due:</strong>
+                            <span class="text-danger fw-bold">₹{{ fee.amount_due }}</span>
+                        </p>
+                    </div>
+
+                    <hr>
+
+                    <!-- Payment Form -->
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label class="form-label">Card Holder Name</label>
+                            <input type="text" name="card_holder_name"
+                                   class="form-control"
+                                   placeholder="Enter card holder name" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Card Number</label>
+                            <input type="text" name="card_number"
+                                   class="form-control"
+                                   maxlength="16"
+                                   placeholder="1234 5678 9012 3456" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Amount</label>
+                            <input type="number" name="amount"
+                                   class="form-control"
+                                   value="{{ fee.amount_due }}"
+                                   step="0.01" required>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">
+                                Pay Now
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Back Button -->
+                    <div class="text-center mt-3">
+                        <a href="{% url 'view_child_fees' %}"
+                           class="text-decoration-none">
+                            ← Back to Fees
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

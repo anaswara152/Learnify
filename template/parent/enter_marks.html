@@ -1,0 +1,136 @@
+{% extends 'parent/page.html' %}
+{% block content %}
+
+<div class="container py-5">
+
+    <!-- Page Header -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-primary">Enter Student Marks</h2>
+        <p class="text-muted">Select subject and class to enter marks</p>
+    </div>
+
+    <!-- 🔹 FILTER CARD -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body">
+
+            <form method="get" class="row g-3 align-items-end">
+
+                <div class="col-md-4">
+                    <label class="form-label">Subject</label>
+                    <select name="subject" class="form-select" required>
+                        <option value="">-- Select Subject --</option>
+                        {% for subject in subjects %}
+                            <option value="{{ subject.id }}"
+                                {% if subject.id|stringformat:"s" == selected_subject_id %}
+                                    selected
+                                {% endif %}
+                            >
+                                {{ subject.subjectname }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Class</label>
+                    <select name="class_level" class="form-select" required>
+                        <option value="">-- Select Class --</option>
+                        {% for c in class_levels %}
+                            <option value="{{ c }}"
+                                {% if c|stringformat:"s" == selected_class_level %}
+                                    selected
+                                {% endif %}
+                            >
+                                {{ c }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-4 d-grid">
+                    <button type="submit" class="btn btn-primary">
+                        View Students
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+
+    {% if students %}
+
+    <!-- 🔹 MARK ENTRY CARD -->
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+
+            <form method="post">
+                {% csrf_token %}
+
+                <!-- Hidden values -->
+                <input type="hidden" name="subject" value="{{ selected_subject_id }}">
+                <input type="hidden" name="class_level" value="{{ selected_class_level }}">
+
+                <div class="mb-4">
+                    <label class="form-label">Total Marks</label>
+                    <input type="number" name="total_marks"
+                           class="form-control"
+                           required>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+
+                        <thead class="table-light">
+                            <tr>
+                                <th>No</th>
+                                <th>Student Name</th>
+                                <th>Marks</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for student in students %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td class="fw-semibold">
+                                    {{ student.user.first_name }}
+                                    {{ student.user.last_name }}
+                                </td>
+                                <td>
+                                    <input type="number"
+                                           name="marks_{{ student.id }}"
+                                           class="form-control"
+                                           min="0"
+                                           required>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+                </div>
+
+                <div class="d-grid mt-3">
+                    <button type="submit" class="btn btn-success">
+                        Save Marks
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    {% elif selected_subject_id and selected_class_level %}
+
+        <div class="alert alert-warning text-center">
+            No students found for this class.
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

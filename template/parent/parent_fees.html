@@ -1,0 +1,105 @@
+{% extends 'parent/page.html' %}
+{% block content %}
+
+<div class="container py-5">
+     {% if messages %}
+        {% for message in messages %}
+            <div class="alert 
+                {% if message.tags == 'success' %}
+                    alert-success
+                {% elif message.tags == 'error' %}
+                    alert-danger
+                {% elif message.tags == 'warning' %}
+                    alert-warning
+                {% else %}
+                    alert-info
+                {% endif %}
+                alert-dismissible fade show" role="alert">
+                
+                {{ message }}
+
+                <button type="button" class="btn-close" 
+                        data-bs-dismiss="alert" 
+                        aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Page Title -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-primary">Child Fees</h2>
+        <p class="text-muted">View and manage fee payments</p>
+    </div>
+
+    <!-- Fees Card -->
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+
+            {% if fees %}
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>Student</th>
+                            <th>Subject</th>
+                            <th>Amount Due</th>
+                            <th>Due Date</th>
+                            <th>Status</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for fee in fees %}
+                        <tr>
+                            <td class="fw-semibold">
+                                {{ fee.student.user.first_name }} {{ fee.student.user.last_name }}
+                            </td>
+
+                            <td>{{ fee.subject }}</td>
+
+                            <td class="text-danger fw-bold">
+                                ₹{{ fee.amount_due }}
+                            </td>
+
+                            <td>{{ fee.due_date }}</td>
+
+                            <td>
+                                {% if fee.status == 'unpaid' %}
+                                    <span class="badge bg-danger">Unpaid</span>
+                                {% else %}
+                                    <span class="badge bg-success">Paid</span>
+                                {% endif %}
+                            </td>
+
+                            <td class="text-center">
+                                {% if fee.status == 'unpaid' %}
+                                    <a href="{% url 'pay_fee' fee.id %}" 
+                                       class="btn btn-sm btn-primary">
+                                        Pay Now
+                                    </a>
+                                {% else %}
+                                    <button class="btn btn-sm btn-outline-success" disabled>
+                                        Paid
+                                    </button>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+            {% else %}
+                <div class="text-center py-4">
+                    <p class="text-muted mb-0">No fees found.</p>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

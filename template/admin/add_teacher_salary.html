@@ -1,0 +1,106 @@
+{% extends 'admin/page.html' %}
+
+{% block content %}
+<div class="container py-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7 col-sm-10">
+
+            <div class="card shadow-sm border-0">
+
+                <!-- Header -->
+                <div class="text-center pt-4">
+                    <h4 class="fw-semibold text-primary">
+                        Pay Salary (GPay / Bank)
+                    </h4>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <form method="post" class="text-center">
+                        {% csrf_token %}
+
+                        <label class="form-label fw-semibold">Teacher</label>
+                        <select name="teacher"
+                                class="form-control mb-3 mx-auto bg-light"
+                                style="max-width: 320px;"
+                                required>
+                                <option value="" class="text-center">select</option>
+                            {% for t in teachers %}
+                                <option value="{{ t.id }}">
+                                    {{ t.user.first_name }} {{ t.user.last_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+
+                        <label class="form-label fw-semibold">Month</label>
+                        <input type="text"
+                               name="month"
+                               class="form-control mb-3 mx-auto bg-light"
+                               style="max-width: 320px;"
+                               placeholder="Eg: July 2026"
+                               required>
+
+                        <label class="form-label fw-semibold">Amount</label>
+                        <input type="number"
+                               name="amount"
+                               class="form-control mb-3 mx-auto bg-light"
+                               style="max-width: 320px;"
+                               required>
+
+                        <label class="form-label fw-semibold">Payment Mode</label>
+                        <select name="payment_mode"
+                                class="form-control mb-3 mx-auto bg-light"
+                                style="max-width: 320px;">
+                            <option value="gpay">GPay</option>
+                            <option value="bank">Bank Transfer</option>
+                        </select>
+
+                        <label class="form-label fw-semibold">Account Holder Name</label>
+                        <input type="text"
+                               name="account_holder_name"
+                               class="form-control mb-3 mx-auto bg-light"
+                               style="max-width: 320px;"
+                               required>
+
+                        <label class="form-label fw-semibold">
+                            Account / GPay Number
+                        </label>
+                        <input type="text"
+                               name="account_number"
+                               class="form-control mb-3 mx-auto bg-light"
+                               style="max-width: 320px;"
+                               required>
+
+                        <label class="form-label fw-semibold">Transaction ID</label>
+                        <input type="text"
+                               name="transaction_id"
+                               class="form-control mb-4 mx-auto bg-light"
+                               style="max-width: 320px;"
+                               required>
+
+                        <button type="submit"
+                                class="btn btn-primary px-5">
+                            Pay Salary
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .card {
+        border-radius: 14px;
+        background-color: #ffffff;
+    }
+    .form-control {
+        border-radius: 8px;
+    }
+</style>
+{% endblock %}

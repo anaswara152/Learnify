@@ -1,0 +1,73 @@
+{% extends 'teacher/page.html' %}
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="card shadow p-4">
+
+        <h4 class="text-center text-primary mb-4">
+            Student Fees
+        </h4>
+
+        {% if fees %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle text-center">
+                <thead class="table-primary">
+                    <tr>
+                        <th>No</th>
+                        <th>Student</th>
+ 
+                        <th>Amount Due</th>
+                        <th>Amount Paid</th>
+                        <th>Status</th>
+                        <th>Due Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for fee in fees %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+
+                        <td class="text-start">
+                            {{ fee.student.user.first_name }} {{ fee.student.user.last_name }}
+                        </td>
+
+
+                        <td>
+                            ₹ {{ fee.amount_due }}
+                        </td>
+
+                        <td>
+                            ₹ {{ fee.amount_paid }}
+                        </td>
+
+                        <td>
+                            {% if fee.status == "Paid" %}
+                                <span class="badge bg-success">Paid</span>
+                            {% elif fee.status == "Partial" %}
+                                <span class="badge bg-warning text-dark">Partial</span>
+                            {% else %}
+                                <span class="badge bg-danger">Due</span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {{ fee.due_date|date:"d M Y" }}
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+            <div class="text-center text-muted">
+                No fee records available.
+            </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'student/page.html' %}
+{% load static %}
+
+{% block title %}Chat{% endblock %}
+
+{% block content %}
+
+<div class="container py-5" style="margin-top:100px; max-width:800px;">
+
+    <!-- Chat Header -->
+    <div class="card shadow-sm border-0 rounded-top">
+        <div class="card-body bg-primary text-white d-flex align-items-center justify-content-between">
+            
+            <!-- Back Button -->
+            <a href="{% url 'select_teacher' %}" 
+               class="btn btn-light btn-sm rounded-pill px-3">
+                ← Back
+            </a>
+
+            <h5 class="mb-0 text-center flex-grow-1">
+                Chat with {{ teacher.user.first_name }} {{ teacher.user.last_name }}
+            </h5>
+
+            <!-- Empty div for alignment -->
+            <div style="width:70px;"></div>
+
+        </div>
+    </div>
+
+    <!-- Chat Messages -->
+    <div class="card shadow-sm border-0 rounded-bottom">
+        <div class="card-body chat-box" id="chatBox">
+
+            {% for msg in messages %}
+                {% if msg.sender == request.user %}
+                    <!-- Student Message -->
+                    <div class="text-end mb-3">
+                        <div class="chat-bubble student-bubble">
+                            {{ msg.content }}
+                            <div class="small text-light mt-1">
+                                {{ msg.timestamp }}
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <!-- Teacher Message -->
+                    <div class="text-start mb-3">
+                        <div class="chat-bubble teacher-bubble">
+                            {{ msg.content }}
+                            <div class="small text-muted mt-1">
+                                {{ msg.timestamp }}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% empty %}
+                <p class="text-center text-muted">No messages yet.</p>
+            {% endfor %}
+
+        </div>
+
+        <!-- Message Input -->
+        <div class="card-footer bg-light">
+            <form method="post" class="d-flex">
+                {% csrf_token %}
+                <input type="text"
+                       name="content"
+                       class="form-control me-2"
+                       placeholder="Type a message..."
+                       required>
+                <button type="submit" class="btn btn-primary rounded-pill px-4">
+                    Send
+                </button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<style>
+.chat-box {
+    height: 400px;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+}
+
+.chat-bubble {
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 20px;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+.student-bubble {
+    background-color: #007bff;
+    color: white;
+    border-bottom-right-radius: 5px;
+}
+
+.teacher-bubble {
+    background-color: #e9ecef;
+    color: #333;
+    border-bottom-left-radius: 5px;
+}
+</style>
+
+<script>
+    var chatBox = document.getElementById("chatBox");
+    chatBox.scrollTop = chatBox.scrollHeight;
+</script>
+
+{% endblock %}

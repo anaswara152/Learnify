@@ -1,0 +1,97 @@
+{% extends 'admin/page.html' %}
+
+{% block content %}
+<div class="container py-2 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-md-11 col-sm-12">
+
+            <div class="card shadow-sm border-0">
+                <!-- Header -->
+                <div class="text-center pt-4">
+                    <h4 class="fw-semibold text-primary">All Student Fees</h4>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <div class="mb-3 text-end">
+                        <a href="{% url 'add_fee' %}" class="btn btn-primary">
+                            Add Fee
+                        </a>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-center align-middle">
+<thead class="table-light">
+    <tr>
+        <th>Student</th>
+        <th>Subject</th>
+        <th>Amount Due</th>
+        <th>Amount Paid</th>
+        <th>Status</th>
+        <th>Due Date</th>
+        <th>Actions</th>
+    </tr>
+</thead>
+<tbody>
+    {% for fee in fees %}
+    <tr>
+        <td>{{ fee.student.user.first_name }} {{ fee.student.user.last_name }}</td>
+        <td>{{ fee.subject.subjectname }}</td>
+        <td>{{ fee.amount_due }}</td>
+        <td>{{ fee.amount_paid }}</td>
+        <td>
+            {% if fee.status == 'paid' %}
+                <span class="badge bg-success">Paid</span>
+            {% elif fee.status == 'partial' %}
+                <span class="badge bg-warning text-dark">Partial</span>
+            {% else %}
+                <span class="badge bg-danger">Unpaid</span>
+            {% endif %}
+        </td>
+        <td>{{ fee.due_date }}</td>
+        <td>
+            {% if fee.student.status == 'approved' and fee.status == 'unpaid' %}
+                <a href="{% url 'edit_fee' fee.id %}" class="btn btn-sm btn-outline-primary mb-1">Edit</a>
+                <a href="{% url 'delete_fee' fee.id %}" 
+                   onclick="return confirm('Are you sure?')"
+                   class="btn btn-sm btn-outline-danger mb-1">
+                   Delete
+                </a>
+            {% else %}
+                <span class="badge bg-secondary">{{ fee.status }}</span>
+            {% endif %}
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="8">No fees found.</td>
+    </tr>
+    {% endfor %}
+</tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .card {
+        border-radius: 14px;
+        background-color: #ffffff;
+    }
+    .table th, .table td {
+        vertical-align: middle;
+    }
+    .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.8rem;
+    }
+</style>
+{% endblock %}

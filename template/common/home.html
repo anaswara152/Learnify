@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static  %}
+<head>
+    <meta charset="utf-8">
+    <title>Learnify - Online Education Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{%static 'Edukate-1.0.0/lib/owlcarousel/assets/owl.carousel.min.css'%}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{%static 'Edukate-1.0.0/css/style.css'%}" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-dark">
+        <div class="row py-2 px-lg-5">
+            <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
+                <div class="d-inline-flex align-items-center text-white">
+                    <small><i class="fa fa-phone-alt mr-2"></i>+012 345 6789</small>
+                    <small class="px-3">|</small>
+                    <small><i class="fa fa-envelope mr-2"></i>learnonlearnify@gamil.com</small>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+                    <a class="text-white px-2" href="">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a class="text-white px-2" href="">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a class="text-white px-2" href="">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a class="text-white px-2" href="">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a class="text-white pl-2" href="">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0 px-lg-5 fixed-top">
+            <a href="{% url 'home'  %}" class="navbar-brand ml-lg-3">
+                <h1 class="m-0 text-uppercase text-primary"><i class="fa fa-book-reader mr-3"></i>Learnify</h1>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
+                <div class="navbar-nav mx-auto py-0">
+                    <a href="{% url 'home'  %}" class="nav-item nav-link active">Home</a>
+                    <a href="#about" class="nav-item nav-link">About</a>
+                    <a href="#tutors" class="nav-item nav-link">Tutors</a>
+                    <a href="#contact" class="nav-item nav-link">Contact</a>
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">SignUp</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="{% url 'student_register' %}" class="dropdown-item">Student</a>
+                            <a href="{% url 'teacher_register' %}" class="dropdown-item">Teacher</a>
+                            <a href="{% url 'parents_register' %}" class="dropdown-item">Parent</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="{% url 'login_users' %}" class="btn btn-primary py-2 px-4 d-none d-lg-block">SignIn</a>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+
+<!-- Header Start -->
+<div class="jumbotron jumbotron-fluid position-relative overlay-bottom" style="margin-bottom: 90px;">
+    <div class="container text-center my-5 py-5">
+        <h5 class="text-white text-uppercase mb-3">
+            Welcome to Learnify
+        </h5>
+
+        <h1 class="text-white display-4 mb-4">
+            Smart Learning Platform
+        </h1>
+
+    
+    </div>
+</div>
+<!-- Header End -->
+
+
+<!-- About Start -->
+<div class="container-fluid py-5 " id="about">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
+                <div class="position-relative h-100">
+                    <img class="position-absolute w-100 h-100"
+                         src="{% static 'Edukate-1.0.0/img/about.jpg' %}"
+                         style="object-fit: cover;">
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+                <div class="section-title position-relative mb-4">
+                    <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">
+                        About Learnify
+                    </h6>
+                    <h1 class="display-4">
+                        Smart Learning & School Management Platform
+                    </h1>
+                </div>
+
+                <p>
+                    Learnify is a comprehensive educational management system designed
+                    to simplify communication between students, parents, tutors, and administrators.
+                    The platform helps manage student registrations, subjects, fees,
+                    reviews, and notifications in a secure and user-friendly way.
+                </p>
+
+                <p>
+                    Our goal is to provide a transparent learning environment where
+                    parents can track their child’s progress, students can focus on
+                    learning, and tutors can manage their responsibilities efficiently.
+                </p>
+
+                <div class="row pt-3 mx-0">
+                    <div class="col-3 px-0">
+                        <div class="bg-success text-center p-4">
+                           <h1 class="text-white">
+                               <span data-toggle="counter-up">10</span>+
+                            </h1>
+                            <h6 class="text-uppercase text-white">
+                                Available
+                                <span class="d-block">Subjects</span>
+                            </h6>
+                        </div>
+                    </div>
+
+                    <div class="col-3 px-0">
+                        <div class="bg-primary text-center p-4">
+                            <h1 class="text-white" >
+                                <span data-toggle="counter-up">50</span>+
+                            </h1>
+                            <h6 class="text-uppercase text-white">
+                                Registered
+                                <span class="d-block">Students</span>
+                            </h6>
+                        </div>
+                    </div>
+
+                    <div class="col-3 px-0">
+                        <div class="bg-secondary text-center p-4">
+                            <h1 class="text-white" >
+                                <span data-toggle="counter-up">10</span>+
+                            </h1>
+                            <h6 class="text-uppercase text-white">
+                                Approved
+                                <span class="d-block">Tutors</span>
+                            </h6>
+                        </div>
+                    </div>
+
+                    <div class="col-3 px-0">
+                        <div class="bg-warning text-center p-4">
+                            <h1 class="text-white" >
+                                <span data-toggle="counter-up">100</span>%
+                            </h1>
+                            <h6 class="text-uppercase text-white">
+                                Secure
+                                <span class="d-block">Management</span>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
+
+
+<!-- Feature Start -->
+<div class="container-fluid bg-image" style="margin: 90px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 my-5 pt-5 pb-lg-5">
+                <div class="section-title position-relative mb-4">
+                    <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">
+                        Why Choose Learnify?
+                    </h6>
+                    <h1 class="display-4">
+                        A Smarter Way to Manage Learning
+                    </h1>
+                </div>
+
+                <p class="mb-4 pb-2">
+                    Learnify connects students, parents, and tutors on a single platform.
+                    From academic tracking to fee management and communication, everything
+                    is organized, transparent, and easy to use.
+                </p>
+
+                <div class="d-flex mb-3">
+                    <div class="btn-icon bg-primary mr-4">
+                        <i class="fa fa-2x fa-user-graduate text-white"></i>
+                    </div>
+                    <div class="mt-n1">
+                        <h4>Approved & Skilled Tutors</h4>
+                        <p>
+                            Only verified and admin-approved tutors guide students,
+                            ensuring quality education and responsible mentoring.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="d-flex mb-3">
+                    <div class="btn-icon bg-secondary mr-4">
+                        <i class="fa fa-2x fa-users text-white"></i>
+                    </div>
+                    <div class="mt-n1">
+                        <h4>Parent–Student Transparency</h4>
+                        <p>
+                            Parents can track fees, remarks, and academic progress,
+                            while students stay informed about reviews and updates.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <div class="btn-icon bg-warning mr-4">
+                        <i class="fa fa-2x fa-school text-white"></i>
+                    </div>
+                    <div class="mt-n1">
+                        <h4>Centralized School Management</h4>
+                        <p class="m-0">
+                            Manage admissions, subjects, fees, notifications, and reports
+                            from one powerful and user-friendly system.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-5" style="min-height: 500px;">
+                <div class="position-relative h-100">
+                    <img class="position-absolute w-100 h-100"
+                         src="{% static 'Edukate-1.0.0/img/feature.jpg' %}"
+                         style="object-fit: cover;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Feature End -->
+<!-- Tutors Start -->
+<div class="container-fluid py-5" id="tutors">
+    <div class="container py-5">
+        <div class="section-title text-center position-relative mb-5">
+            <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Tutors</h6>
+            <h1 class="display-4">Meet Our Approved Tutors</h1>
+        </div>
+
+        <div class="owl-carousel team-carousel position-relative" style="padding: 0 30px;">
+            {% for t in tutors %}
+            <div class="team-item">
+                {% if t.profile_picture %}
+                <img class="img-fluid w-100" src="{{ t.profile_picture.url }}" alt="Tutor">
+                {% else %}
+                <img class="img-fluid w-100" src="{% static 'Edukate-1.0.0/img/teacherdeafult.png' %}" alt="Tutor">
+                {% endif %}
+
+                <div class="bg-light text-center p-4">
+                    <h5 class="mb-1">{{ t.user.first_name }} {{ t.user.last_name }}</h5>
+                    <span class="badge badge-success">Approved</span>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center">No approved tutors available</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Tutors End -->
+<!-- Testimonial Start -->
+<div class="container-fluid bg-image py-5" style="margin: 90px 0;">
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-lg-5 mb-5 mb-lg-0">
+                <div class="section-title position-relative mb-4">
+                    <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">
+                        Feedback
+                    </h6>
+                    <h1 class="display-4">
+                        What Our Students & Parents Say
+                    </h1>
+                </div>
+                <p class="m-0">
+                    Learnify helps students focus on learning while keeping parents
+                    informed and involved. Transparent reviews, easy fee tracking,
+                    and smooth communication make the experience better for everyone.
+                </p>
+            </div>
+
+            <div class="col-lg-7">
+                <div class="owl-carousel testimonial-carousel">
+
+                    <div class="bg-white p-5">
+                        <i class="fa fa-3x fa-quote-left text-primary mb-4"></i>
+                        <p>
+                            Learnify made it easy for me to track my academic progress
+                            and view teacher reviews. Everything is clear and well organized.
+                        </p>
+                        <div class="d-flex flex-shrink-0 align-items-center mt-4">
+                            <img class="img-fluid mr-4"
+                                 src="{% static 'Edukate-1.0.0/img/testimonial-2.jpg' %}"
+                                 alt="">
+                            <div>
+                                <h5>Student</h5>
+                                <span>Higher Secondary</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-5">
+                        <i class="fa fa-3x fa-quote-left text-primary mb-4"></i>
+                        <p>
+                            As a parent, I can view fee details, receive notifications,
+                            and monitor my child’s performance without confusion.
+                            Learnify is very helpful.
+                        </p>
+                        <div class="d-flex flex-shrink-0 align-items-center mt-4">
+                            <img class="img-fluid mr-4"
+                                 src="{% static 'Edukate-1.0.0/img/testimonial-1.jpg' %}"
+                                 alt="">
+                            <div>
+                                <h5>Parent</h5>
+                                <span>Guardian</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Testimonial End -->
+
+
+<!-- Footer Start -->
+<div class="container-fluid position-relative overlay-top bg-dark text-white-50 py-5" style="margin-top: 90px;">
+    <div class="container mt-5 pt-5">
+        <div class="row">
+
+            <!-- Brand & About -->
+            <div class="col-md-6 mb-5">
+                <a href="{% url 'home' %}" class="navbar-brand">
+                    <h1 class="mt-n2 text-uppercase text-white">
+                        <i class="fa fa-book-reader mr-3"></i>Learnify
+                    </h1>
+                </a>
+                <p class="m-0">
+                    Learnify is an education management platform designed to connect
+                    tutors, parents, and students. Our system simplifies learning,
+                    fee payments, notifications, and academic tracking in one secure place.
+                </p>
+            </div>
+
+           
+
+        </div>
+
+        <div class="row" id="contact">
+
+            <!-- Contact -->
+            <div class="col-md-4 mb-5" >
+                <h3 class="text-white mb-4">Contact Us</h3>
+                <p><i class="fa fa-map-marker-alt mr-2"></i>Kerala, India</p>
+                <p><i class="fa fa-phone-alt mr-2"></i>+91 9XXXXXXXXX</p>
+                <p><i class="fa fa-envelope mr-2"></i>support@learnify.com</p>
+
+                <div class="d-flex justify-content-start mt-4">
+                    <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-facebook-f"></i></a>
+                    <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-twitter"></i></a>
+                    <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-linkedin-in"></i></a>
+                    <a class="text-white" href="#"><i class="fab fa-2x fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <!-- Services -->
+            <div class="col-md-4 mb-5">
+                <h3 class="text-white mb-4">Our Services</h3>
+                <div class="d-flex flex-column justify-content-start">
+                    <a class="text-white-50 mb-2" href="#">
+                        <i class="fa fa-angle-right mr-2"></i>Online Tutoring
+                    </a>
+                    <a class="text-white-50 mb-2" href="#">
+                        <i class="fa fa-angle-right mr-2"></i>Student Management
+                    </a>
+                    <a class="text-white-50 mb-2" href="#">
+                        <i class="fa fa-angle-right mr-2"></i>Fee & Payment Tracking
+                    </a>
+                    <a class="text-white-50 mb-2" href="#">
+                        <i class="fa fa-angle-right mr-2"></i>Parent Notifications
+                    </a>
+                    <a class="text-white-50" href="#">
+                        <i class="fa fa-angle-right mr-2"></i>Secure Login System
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-md-4 mb-5">
+                <h3 class="text-white mb-4">Quick Links</h3>
+                <div class="d-flex flex-column justify-content-start">
+                    <a class="text-white-50 mb-2" href="{% url 'home' %}">
+                        <i class="fa fa-angle-right mr-2"></i>Home
+                    </a>
+                    <a class="text-white-50 mb-2" href="#">
+                        <i class="fa fa-angle-right mr-2"></i>About Learnify
+                    </a>
+                    <a class="text-white-50 mb-2" href="{% url 'login_users' %}">
+                        <i class="fa fa-angle-right mr-2"></i>Login
+                    </a>
+                    <a class="text-white-50 mb-2" href="#">
+                        <i class="fa fa-angle-right mr-2"></i>Register
+                    </a>
+                    <a class="text-white-50" href="#">
+                        <i class="fa fa-angle-right mr-2"></i>Support
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Copyright -->
+<div class="container-fluid bg-dark text-white-50 border-top py-4"
+     style="border-color: rgba(256, 256, 256, .1) !important;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
+                <p class="m-0">
+                    © 2026 <a class="text-white" href="#">Learnify</a>.
+                    All Rights Reserved.
+                </p>
+            </div>
+            <div class="col-md-6 text-center text-md-right">
+                <p class="m-0">
+                    Developed for Academic Project
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer End -->
+
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary rounded-0 btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{%static 'Edukate-1.0.0/lib/easing/easing.min.js'%}"></script>
+    <script src="{%static 'Edukate-1.0.0/lib/waypoints/waypoints.min.js'%}"></script>
+    <script src="{%static 'Edukate-1.0.0/lib/counterup/counterup.min.js'%}"></script>
+    <script src="{%static 'Edukate-1.0.0/lib/owlcarousel/owl.carousel.min.js'%}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{%static 'Edukate-1.0.0/js/main.js'%}"></script>
+</body>
+
+</html>

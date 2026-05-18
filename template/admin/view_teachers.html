@@ -1,0 +1,85 @@
+{% extends 'admin/page.html' %}
+
+{% block content %}
+<div class="container py-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-11 col-md-12 col-sm-12">
+
+            <div class="card shadow-sm border-0">
+                <!-- Header -->
+                <div  class="text-center pt-4">
+                    <h4 class="fw-semibold text-primary">All Teachers</h4>
+                </div>
+
+                <div class="card-body p-4">
+
+                    {% if t %}
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered align-middle text-center">
+                            <thead class="table-light">
+                                <tr>
+                                    <th >Sl No</th>
+                                    <th >Full Name</th>
+                                    <th >Username</th>
+                                    <th >Email</th>
+                                    <th >Phone</th>
+                                    <th>Qualification</th>
+                                    <th >Experience</th>
+                                    <th >Subjects</th>
+                                    <th >Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for teacher in t %}
+                                <tr>
+                                    <td >{{ forloop.counter }}</td>
+                                    <td >{{ teacher.user.first_name }} {{ teacher.user.last_name }}</td>
+                                    <td >{{ teacher.user.username }}</td>
+                                    <td >{{ teacher.user.email }}</td>
+                                    <td >{{ teacher.phone }}</td>
+                                    <td >{{ teacher.qualification }}</td>
+                                    <td >{{ teacher.experience }} yrs</td>
+                                    <td >
+                                        {% for sub in teacher.subjects.all %}
+                                            <span class="badge bg-secondary mx-1">{{ sub.subjectname }}</span>
+                                        {% endfor %}
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'teacher_deatils' teacher.id %}" 
+                                           class="btn btn-sm btn-outline-primary">
+                                           Details
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                        <div class="alert alert-info text-center">No teachers found.</div>
+                    {% endif %}
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa; /* match login/add-fee theme */
+    }
+    .card {
+        border-radius: 14px;
+        background-color: #ffffff;
+    }
+    .badge {
+        font-size: 0.8rem;
+    }
+    .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.8rem;
+    }
+</style>
+{% endblock %}

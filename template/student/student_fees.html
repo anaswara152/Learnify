@@ -1,0 +1,73 @@
+{% extends 'student/page.html' %}
+{% load static %}
+
+{% block title %}My Fees{% endblock %}
+
+{% block content %}
+
+<div class="container py-5" style="margin-top:100px; max-width:1000px;">
+
+    <!-- Page Header -->
+    <div class="text-center mb-4">
+        <h3 class="fw-bold text-primary">My Fees</h3>
+        <p class="text-muted">View your payment details and due information</p>
+    </div>
+
+    {% if fees %}
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-primary text-center">
+                        <tr>
+                            <th>Sl No</th>
+                            <th>Subject</th>
+                            <th>Amount Due</th>
+                            <th>Amount Paid</th>
+                            <th>Status</th>
+                            <th>Due Date</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        {% for fee in fees %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ fee.subject }}</td>
+                            <td>₹ {{ fee.amount_due }}</td>
+                            <td>₹ {{ fee.amount_paid }}</td>
+
+                            <td>
+                                {% if fee.status == "Paid" %}
+                                    <span class="badge bg-success px-3 py-2">
+                                        Paid
+                                    </span>
+                                {% elif fee.status == "Pending" %}
+                                    <span class="badge bg-warning text-dark px-3 py-2">
+                                        Pending
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-danger px-3 py-2">
+                                        Overdue
+                                    </span>
+                                {% endif %}
+                            </td>
+
+                            <td>{{ fee.due_date }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    {% else %}
+        <div class="alert alert-info text-center shadow-sm">
+            No fee records available.
+        </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

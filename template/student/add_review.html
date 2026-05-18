@@ -1,0 +1,56 @@
+{% extends 'student/page.html' %}
+{% load static %}
+
+{% block title %}Add Review{% endblock %}
+
+{% block content %}
+
+<div class="container py-5" style="margin-top:100px; max-width:700px;">
+
+    <!-- Page Header -->
+    <div class="text-center mb-4">
+        <h3 class="fw-bold text-primary">Add Review & Remark</h3>
+        <p class="text-muted">Share your feedback and additional comments</p>
+    </div>
+
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-4">
+
+            <form method="post">
+                {% csrf_token %}
+
+                <!-- Review Field -->
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">Review</label>
+                    <textarea name="review"
+                              class="form-control rounded-3"
+                              rows="4"
+                              placeholder="Write your review here..."
+                              required></textarea>
+                </div>
+
+                <!-- Remark Field -->
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">Remark</label>
+                    <textarea name="remark"
+                              class="form-control rounded-3"
+                              rows="4"
+                              placeholder="Add any additional remarks (optional)..."></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button type="submit"
+                            class="btn btn-primary rounded-pill px-5">
+                        Submit
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

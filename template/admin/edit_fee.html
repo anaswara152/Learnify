@@ -1,0 +1,81 @@
+{% extends 'admin/page.html' %}
+
+{% block content %}
+<div class="container py-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7 col-sm-10">
+
+            <div class="card shadow-sm border-0">
+
+                <!-- Header -->
+                <div class="text-center pt-4">
+                    <h4 class="fw-semibold text-primary">
+                        Update Fee
+                    </h4>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <form method="post" class="text-center">
+                        {% csrf_token %}
+
+                        <p class="mb-1">
+                            <strong>Student:</strong>
+                            {{ fee.student.user.first_name }} {{ fee.student.user.last_name }}
+                        </p>
+
+                        <p class="mb-3">
+                            <strong>Class:</strong>
+                            {{ fee.class_level }}
+                        </p>
+
+                        <label class="form-label fw-semibold">Amount Due</label>
+                        <input type="number"
+                               name="amount_due"
+                               value="{{ fee.amount_due }}"
+                               step="0.01"
+                               class="form-control mb-3 mx-auto bg-light"
+                               style="max-width: 320px;"
+                               required>
+
+                        <label class="form-label fw-semibold">Due Date</label>
+                        <input type="date"
+                               name="due_date"
+                               value="{{ fee.due_date|date:'Y-m-d' }}"
+                               class="form-control mb-4 mx-auto bg-light"
+                               style="max-width: 320px;"
+                               required>
+
+                        <button type="submit"
+                                class="btn btn-primary px-5">
+                            Update Fee
+                        </button>
+                    </form>
+
+                    <div class="mt-3 text-center">
+                        <a href="{% url 'view_fees_admin' %}"
+                           class="text-decoration-none text-primary">
+                            Back to Fee List
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .card {
+        border-radius: 14px;
+        background-color: #ffffff;
+    }
+    .form-control {
+        border-radius: 8px;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Learnify</title>
+
+    <!-- Bootstrap & FontAwesome -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'Edukate-1.0.0/css/style.css' %}" rel="stylesheet">
+
+    <style>
+        .student-card {
+            transition: 0.3s;
+        }
+        .student-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        .student-card i {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body style="background-color:#f8f9fa;">
+
+<!-- Navbar Start -->
+<div class="container-fluid p-0">
+    <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 px-lg-5 fixed-top shadow-sm">
+        <a href="{% url 'studenthome' %}" class="navbar-brand ml-lg-3">
+            <h1 class="m-0 text-uppercase text-primary">
+                <i class="fa fa-book-reader mr-3"></i>Learnify
+            </h1>
+        </a>
+
+        <div class="collapse navbar-collapse justify-content-end">
+            <div class="d-flex align-items-center d-none d-lg-flex">
+                <a href="{% url 'studenthome' %}" class="btn btn-outline-primary py-2 px-3 mr-2">
+                    Home
+                </a>
+                <a href="{% url 'logoutuser' %}" class="btn btn-primary py-2 px-4">
+                    Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<!-- Navbar End -->
+ <div class="jumbotron jumbotron-fluid position-relative overlay-bottom" style="margin-bottom: 90px;">
+    <div class="container text-center my-5 py-5">
+        <h1 class="text-white display-4 mb-4">student Dashboard</h1>
+        <p class="text-white lead"></p>
+    </div>
+</div>
+
+<!-- Page Content -->
+<div class="container py-5" style="margin-top:120px;">
+    <div class="section-title text-center mb-5">
+        <h6 class="d-inline-block text-secondary text-uppercase pb-2">Student Panel</h6>
+        <h1 class="display-4">Manage Activities</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'student_live_classes' %}" class="card text-center student-card p-4">
+                <i class="fas fa-video"></i>
+                <h5 class="mt-3">Live Classes</h5>
+            </a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'view_recorded_classes' %}" class="card text-center student-card p-4">
+                <i class="fas fa-play-circle"></i>
+                <h5 class="mt-3">Recorded Classes</h5>
+            </a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'View_notes' %}" class="card text-center student-card p-4">
+                <i class="fas fa-book"></i>
+                <h5 class="mt-3">Notes</h5>
+            </a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'view_homeworks' %}" class="card text-center student-card p-4">
+                <i class="fas fa-tasks"></i>
+                <h5 class="mt-3">Homework</h5>
+            </a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'view_attendance_for_students' %}" class="card text-center student-card p-4">
+                <i class="fas fa-calendar-check"></i>
+                <h5 class="mt-3">Attendance</h5>
+            </a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'student_view_marks' %}" class="card text-center student-card p-4">
+                <i class="fas fa-graduation-cap"></i>
+                <h5 class="mt-3">Marks</h5>
+            </a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'student_teacher_chat' %}" class="card text-center student-card p-4">
+                <i class="fas fa-comments"></i>
+                <h5 class="mt-3">Chat</h5>
+            </a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'student_fees' %}" class="card text-center student-card p-4">
+                <i class="fas fa-money-bill-wave"></i>
+                <h5 class="mt-3">Fees</h5>
+            </a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'student_add_review' %}" class="card text-center student-card p-4">
+                <i class="fas fa-star"></i>
+                <h5 class="mt-3">Add Review</h5>
+            </a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'student_view_review_remark' %}" class="card text-center student-card p-4">
+                <i class="fas fa-eye"></i>
+                <h5 class="mt-3">View Reviews</h5>
+            </a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'student_notifications' %}" class="card text-center student-card p-4">
+                <i class="fas fa-bell"></i>
+                <h5 class="mt-3">Notifications</h5>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Footer Start -->
+<div class="container-fluid bg-light text-center text-muted py-2 mt-5 fixed-bottom">
+    <small>
+        © 2026 <span class="text-primary">Learnify</span>. All Rights Reserved.
+    </small>
+</div>
+
+<!-- JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

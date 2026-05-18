@@ -1,0 +1,77 @@
+{% extends 'teacher/page.html' %}
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow-lg border-0">
+
+        <!-- Header -->
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">My Attendance</h4>
+        </div>
+
+        <div class="card-body">
+
+            <!-- 🔹 Month Filter -->
+            <form method="get" class="row g-3 align-items-center mb-4">
+                <div class="col-auto">
+                    <label class="col-form-label fw-semibold">Select Month:</label>
+                </div>
+                <div class="col-auto">
+                    <input type="month" 
+                           name="month" 
+                           value="{{ selected_month }}" 
+                           class="form-control">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">
+                        View
+                    </button>
+                </div>
+            </form>
+
+            <!-- Attendance Table -->
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle text-center">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>No</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for att in attendance %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ att.date|date:"d M Y" }}</td>
+                            <td>
+                                {% if att.status == 'present' %}
+                                    <span class="badge bg-success">Present</span>
+                                {% elif att.status == 'absent' %}
+                                    <span class="badge bg-danger">Absent</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">Pending</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3" class="text-muted py-4">
+                                No attendance records found
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

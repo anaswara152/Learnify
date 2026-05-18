@@ -1,0 +1,61 @@
+{% extends 'student/page.html' %}
+{% load static %}
+
+{% block title %}Recorded Classes{% endblock %}
+
+{% block content %}
+
+<div class="container py-5" style="margin-top:100px;">
+
+    <div class="text-center mb-5">
+        <h2 class="text-primary font-weight-bold">Recorded Classes</h2>
+        <p class="text-muted">Watch your uploaded class recordings</p>
+    </div>
+
+    <div class="row">
+        {% for c in classes %}
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm border-0 rounded-lg h-100 video-card">
+                <div class="card-body">
+                    
+                    <h5 class="text-primary font-weight-bold">
+                        {{ c.title }}
+                    </h5>
+
+                    <p class="text-muted mb-3">
+                        {{ c.subject }}
+                    </p>
+
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <video class="w-100 rounded" controls>
+                            <source src="{{ c.video.url }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info text-center">
+                No recorded classes available.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+<style>
+.video-card {
+    transition: 0.3s ease;
+}
+.video-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+</style>
+
+{% endblock %}

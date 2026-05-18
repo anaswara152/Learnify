@@ -1,0 +1,130 @@
+{% extends 'teacher/page.html' %}
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="card shadow p-4 mb-4">
+        <h4 class="text-center text-primary mb-4">
+            Mark / Edit Attendance
+        </h4>
+
+        <!-- Select Subject, Class & Date -->
+        <form method="get">
+            <div class="row g-3 align-items-end">
+
+                <div class="col-md-4">
+                    <label class="form-label">Subject</label>
+                    <select name="subject" class="form-control" required>
+                        <option value="">Select Subject</option>
+                        {% for sub in subjects %}
+                        <option value="{{ sub.id }}"
+                            {% if sub.id|stringformat:"s" == selected_subject_id|stringformat:"s" %}selected{% endif %}>
+                            {{ sub.subjectname }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Class Level</label>
+                    <select name="class_level" class="form-control" required>
+                        <option value="">Select Class</option>
+                        {% for i in class_levels %}
+                        <option value="{{ i }}"
+                            {% if i|stringformat:"s" == selected_class_level|stringformat:"s" %}selected{% endif %}>
+                            Class {{ i }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Date</label>
+                    <input type="date" name="date"
+                           value="{{ selected_date }}"
+                           class="form-control" required>
+                </div>
+
+                <div class="col-md-2 text-end">
+                    <button type="submit" class="btn btn-primary w-100">
+                        Load
+                    </button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+
+    {% if students %}
+    <div class="card shadow p-4">
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="subject" value="{{ selected_subject_id }}">
+            <input type="hidden" name="date" value="{{ selected_date }}">
+            <input type="hidden" name="class_level" value="{{ selected_class_level }}">
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle text-center">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>No</th>
+                            <th>Student Name</th>
+                            <th>Current Status</th>
+                            <th>Present</th>
+                            <th>Absent</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in students %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+
+                            <td class="text-start">
+                                {{ student.user.first_name }} {{ student.user.last_name }}
+                            </td>
+
+                            <td>
+                                {% if student.attendance_status == "present" %}
+                                    <span class="badge bg-success">Present</span>
+                                {% elif student.attendance_status == "absent" %}
+                                    <span class="badge bg-danger">Absent</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">Not Marked</span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <input type="radio"
+                                       name="status_{{ student.id }}"
+                                       value="present"
+                                       {% if student.attendance_status == 'present' %}checked{% endif %}>
+                            </td>
+
+                            <td>
+                                <input type="radio"
+                                       name="status_{{ student.id }}"
+                                       value="absent"
+                                       {% if student.attendance_status == 'absent' or student.attendance_status == 'Not Marked' %}checked{% endif %}>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-success px-4">
+                    Save Attendance
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

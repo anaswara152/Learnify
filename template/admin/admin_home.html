@@ -1,0 +1,189 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+       <a href="{% url 'logoutuser'  %}">Logout</a>
+    <a href="{% url 'viewteachers' %}">View Teachers</a>
+    <a href="{% url 'viewpendingteachers' %}">pendinglist</a>
+    <a href="{% url 'add_fee' %}">AddFees</a>
+    <a href="{% url 'view_fees_admin' %}">Fee details </a>
+    <a href="{% url 'view_paid_fees_admin' %}">Fee paid </a>
+    <a href="{% url 'add_teacher_salary' %}">Add salry</a>
+    <a href="{% url 'view_teacher_salary_admin' %}">Salary details</a>
+    <a href="{% url 'blockedteachers' %}">Blocked teachers</a>
+    <a href="{% url 'view_bloked_students' %}">Unpaid students</a>
+    <a href="{% url 'mark_teacher_attendance' %}">Mark Attendence</a>
+    <a href="{% url 'admin_view_reviews_remarks' %}">View Remarks & Reviews</a>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <title>Admin Dashboard - Learnify</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap & FontAwesome -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'Edukate-1.0.0/css/style.css' %}" rel="stylesheet">
+
+    <style>
+        .admin-card {
+            transition: 0.3s;
+        }
+        .admin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        .admin-card i {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar Start -->
+<!-- Navbar -->
+<div class="container-fluid p-0">
+    <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 px-lg-5 fixed-top shadow-sm">
+        <a href="{% url 'adminhome' %}" class="navbar-brand ml-lg-3">
+            <h1 class="m-0 text-uppercase text-primary">
+                <i class="fa fa-book-reader mr-3"></i>Learnify
+            </h1>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end px-lg-3" id="navbarCollapse">
+
+            <!-- Right side buttons -->
+            <div class="d-flex align-items-center d-none d-lg-flex">
+
+                <a href="{% url 'adminhome' %}" class="btn btn-outline-primary py-2 px-3 mr-2">
+                    Home
+                </a>
+                <a href="{% url 'logoutuser' %}" class="btn btn-primary py-2 px-4">
+                    Logout
+                </a>
+
+            </div>
+        </div>
+    </nav>
+</div>
+<!-- Navbar End -->
+
+
+<!-- Header Start -->
+<div class="jumbotron jumbotron-fluid position-relative overlay-bottom" style="margin-bottom: 90px;">
+    <div class="container text-center my-5 py-5">
+        <h1 class="text-white display-4 mb-4">Admin Dashboard</h1>
+        <p class="text-white lead">Manage Teachers, Students, Fees, Attendance, Reviews, and More</p>
+    </div>
+</div>
+<!-- Header End -->
+
+<!-- Admin Functions Start -->
+<div class="container py-5">
+    <div class="section-title text-center mb-5">
+        <h6 class="d-inline-block text-secondary text-uppercase pb-2">Admin Panel</h6>
+        <h1 class="display-4">Manage Platform</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'viewteachers' %}" class="card text-center admin-card p-4">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <h5 class="mt-3">View Teachers</h5>
+            </a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'viewpendingteachers' %}" class="card text-center admin-card p-4">
+                <i class="fas fa-hourglass-half"></i>
+                <h5 class="mt-3">Pending Teachers</h5>
+            </a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'add_fee' %}" class="card text-center admin-card p-4">
+                <i class="fas fa-money-bill-wave"></i>
+                <h5 class="mt-3">Add Fees</h5>
+            </a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'view_fees_admin' %}" class="card text-center admin-card p-4">
+                <i class="fas fa-list"></i>
+                <h5 class="mt-3">Fee Details</h5>
+            </a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'view_paid_fees_admin' %}" class="card text-center admin-card p-4">
+                <i class="fas fa-check-circle"></i>
+                <h5 class="mt-3">Paid Fees</h5>
+            </a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'add_teacher_salary' %}" class="card text-center admin-card p-4">
+                <i class="fas fa-hand-holding-usd"></i>
+                <h5 class="mt-3">Add Salary</h5>
+            </a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'view_teacher_salary_admin' %}" class="card text-center admin-card p-4">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <h5 class="mt-3">Salary Details</h5>
+            </a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'blockedteachers' %}" class="card text-center admin-card p-4">
+                <i class="fas fa-user-slash"></i>
+                <h5 class="mt-3">Blocked Teachers</h5>
+            </a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'view_bloked_students' %}" class="card text-center admin-card p-4">
+                <i class="fas fa-user-clock"></i>
+                <h5 class="mt-3">Unpaid Students</h5>
+            </a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'mark_teacher_attendance' %}" class="card text-center admin-card p-4">
+                <i class="fas fa-calendar-check"></i>
+                <h5 class="mt-3">Mark Attendance</h5>
+            </a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'admin_view_reviews_remarks' %}" class="card text-center admin-card p-4">
+                <i class="fas fa-comment-dots"></i>
+                <h5 class="mt-3">Reviews & Remarks</h5>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- Admin Functions End -->
+
+<!-- Footer Start -->
+<div class="container-fluid bg-light text-center text-muted py-2 mt-5 fixed-bottom">
+    <small>
+        © 2026 <span class="text-primary">Learnify</span>. All Rights Reserved.
+    </small>
+</div>
+
+<!-- Footer End -->
+
+<!-- JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

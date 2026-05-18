@@ -1,0 +1,82 @@
+{% extends 'admin/page.html' %}
+
+{% block content %}
+<div class="container py-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-11 col-md-12 col-sm-12">
+
+            <div class="card shadow-sm border-0">
+
+                <!-- Header -->
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h4 class="fw-semibold mb-0">
+                        Teacher Salary Payments
+                    </h4>
+                </div>
+
+                <div class="card-body p-4">
+
+                    {% if salaries %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped text-center align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Sl No</th>
+                                    <th>Teacher</th>
+                                    <th>Month</th>
+                                    <th>Amount</th>
+                                    <th>Mode</th>
+                                    <th>Account Details</th>
+                                    <th>Transaction ID</th>
+                                    <th>Paid Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for s in salaries %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ s.teacher.user.first_name }}</td>
+                                    <td>{{ s.month }}</td>
+                                    <td>₹ {{ s.amount }}</td>
+                                    <td>
+                                        <span class="badge bg-info text-dark">
+                                            {{ s.payment_mode|title }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <strong>{{ s.account_holder_name }}</strong><br>
+                                        {{ s.account_number }}
+                                    </td>
+                                    <td>{{ s.transaction_id }}</td>
+                                    <td>{{ s.paid_date}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                        <div class="alert alert-info text-center">
+                            No salary payments found.
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .card {
+        border-radius: 14px;
+        background-color: #ffffff;
+    }
+    .badge {
+        font-size: 0.8rem;
+    }
+</style>
+{% endblock %}

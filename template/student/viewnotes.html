@@ -1,0 +1,60 @@
+{% extends 'student/page.html' %}
+{% load static %}
+
+{% block title %}Study Notes{% endblock %}
+
+{% block content %}
+
+<div class="container py-5" style="margin-top:100px;">
+
+    <div class="text-center mb-5">
+        <h2 class="text-primary font-weight-bold">Study Notes</h2>
+        <p class="text-muted">Download subject materials shared by your teacher</p>
+    </div>
+
+    <div class="row">
+        {% for n in notes %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card shadow-sm border-0 rounded-lg h-100 note-card">
+                <div class="card-body text-center">
+
+                    <h5 class="text-primary font-weight-bold">
+                        {{ n.title }}
+                    </h5>
+
+                    <p class="text-muted mb-3">
+                        {{ n.subject }}
+                    </p>
+
+                    <a href="{{ n.file.url }}" 
+                       class="btn btn-outline-primary px-4 rounded-pill"
+                       download>
+                        Download
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info text-center">
+                No notes available.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+<style>
+.note-card {
+    transition: 0.3s ease;
+}
+.note-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+</style>
+
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'student/page.html' %}
+{% load static %}
+
+{% block title %}Homework{% endblock %}
+
+{% block content %}
+
+<div class="container py-5" style="margin-top:100px;">
+
+    <div class="text-center mb-5">
+        <h2 class="text-primary font-weight-bold">Homework</h2>
+        <p class="text-muted">Complete and submit your assignments on time</p>
+    </div>
+
+    <div class="row">
+        {% for hw in homeworks %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card shadow-sm border-0 rounded-lg h-100 homework-card">
+                <div class="card-body">
+
+                    <h5 class="text-primary font-weight-bold">
+                        {{ hw.title }}
+                    </h5>
+
+                    <p class="text-muted mb-1">
+                        <strong>Subject:</strong> {{ hw.subject }}
+                    </p>
+
+                    <p class="text-muted mb-3">
+                        <strong>Due Date:</strong> {{ hw.due_date }}
+                    </p>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ hw.file.url }}" 
+                           class="btn btn-outline-primary btn-sm rounded-pill"
+                           download>
+                            Download
+                        </a>
+
+                        <a href="{% url 'submit_homework' hw.id %}" 
+                           class="btn btn-primary btn-sm rounded-pill">
+                            Submit
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info text-center">
+                No homework assigned.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+<style>
+.homework-card {
+    transition: 0.3s ease;
+}
+.homework-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+</style>
+
+{% endblock %}

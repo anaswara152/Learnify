@@ -1,0 +1,110 @@
+{% extends 'admin/page.html' %}
+{% block content %}
+
+<div class="container py-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="card shadow-sm border-0">
+
+                <!-- Header -->
+                <div class="text-center pt-4">
+                    <h4 class="fw-semibold text-primary">
+                        Parent Details
+                    </h4>
+                </div>
+
+                <div class="card-body p-4">
+
+                    {% for parent in d %}
+                    <table class="table table-bordered align-middle">
+                        <tr>
+                            <th width="40%">Full Name</th>
+                            <td>{{ parent.user.first_name }} {{ parent.user.last_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Username</th>
+                            <td>{{ parent.user.username }}</td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td>{{ parent.user.email }}</td>
+                        </tr>
+                        <tr>
+                            <th>Phone</th>
+                            <td>{{ parent.phone }}</td>
+                        </tr>
+                        <tr>
+                            <th>Gender</th>
+                            <td>{{ parent.gender }}</td>
+                        </tr>
+                        <tr>
+                            <th>Occupation</th>
+                            <td>{{ parent.occupation }}</td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <td>{{ parent.address }}</td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <td>
+                                {% if parent.status == 'pending' %}
+                                    <span class="badge bg-warning text-dark">
+                                        Pending
+                                    </span>
+                                {% elif parent.status == 'approved' %}
+                                    <span class="badge bg-success">
+                                        Approved
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-danger">
+                                        Removed
+                                    </span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Action</th>
+                            <td>
+                                {% if parent.status == 'pending' %}
+                                    <a href="{% url 'approve_parents' parent.id %}" 
+                                       class="btn btn-sm btn-outline-success">
+                                       Approve
+                                    </a>
+
+                                    <a href="{% url 'remove_parents' parent.id %}" 
+                                       class="btn btn-sm btn-outline-danger">
+                                       Remove
+                                    </a>
+                                {% else  %}
+                                <span class="badge bg-danger">
+                                    No action
+                                </span>
+
+                       
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .card {
+        border-radius: 14px;
+        background-color: #ffffff;
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+<h2>Edit Marks</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <table border="1" cellpadding="8">
+        <tr>
+            <th>Student</th>
+            <td>{{ mark.student.user.first_name }} {{ mark.student.user.last_name }}</td>
+        </tr>
+
+        <tr>
+            <th>Subject</th>
+            <td>{{ mark.subject.subjectname }}</td>
+        </tr>
+
+        <tr>
+            <th>Total Marks</th>
+            <td>
+                <input type="number"
+                       name="total"
+                       value="{{ mark.total_marks }}"
+                       required>
+            </td>
+        </tr>
+
+        <tr>
+            <th>Marks Obtained</th>
+            <td>
+                <input type="number"
+                       name="marks"
+                       value="{{ mark.marks_obtained }}"
+                       required>
+            </td>
+        </tr>
+    </table>
+
+    <br>
+
+    <button type="submit">Update Marks</button>
+    <a href="{% url 'view_marks' %}">Cancel</a>
+</form>

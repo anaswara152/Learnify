@@ -1,0 +1,132 @@
+{% extends 'teacher/page.html' %}
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="card shadow p-4">
+
+        <h4 class="text-center text-primary mb-4">
+            Teacher Profile
+        </h4>
+
+        <div class="row align-items-center">
+
+            <!-- Profile Image -->
+            <div class="col-md-4 text-center mb-4 mb-md-0">
+                {% if teacher.profile_picture %}
+                    <img src="{{ teacher.profile_picture.url }}"
+                         class="img-fluid rounded-circle border"
+                         style="width:180px; height:180px; object-fit:cover;">
+                {% else %}
+                    <div class="text-muted">
+                        No Image Uploaded
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Profile Details -->
+            <div class="col-md-8">
+
+                <table class="table table-bordered">
+
+                    <tr>
+                        <th width="30%">Name</th>
+                        <td>{{ teacher.user.first_name }} {{ teacher.user.last_name }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Username</th>
+                        <td>{{ teacher.user.username }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ teacher.user.email }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Gender</th>
+                        <td>{{ teacher.gender }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Phone</th>
+                        <td>{{ teacher.phone }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Qualification</th>
+                        <td>{{ teacher.qualification }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Experience</th>
+                        <td>{{ teacher.experience }}</td>
+                    </tr>
+
+                    <tr>
+                        
+                    </tr>
+
+                    <tr>
+                        <th>Status</th>
+                        <td>
+                            {% if teacher.status == "approved" %}
+                                <span class="badge bg-success">Approved</span>
+                            {% elif teacher.status == "rejected" %}
+                                <span class="badge bg-danger">Rejected</span>
+                            {% else %}
+                                <span class="badge bg-warning text-dark">Pending</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>ID Card</th>
+                        <td>
+                            {% if teacher.id_card %}
+                                <a href="{{ teacher.id_card.url }}"
+                                   class="btn btn-sm btn-outline-primary"
+                                   target="_blank">
+                                   View ID Card
+                                </a>
+                            {% else %}
+                                <span class="text-muted">Not Uploaded</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Certificates</th>
+                        <td>
+                            {% if teacher.certificates %}
+                                <a href="{{ teacher.certificates.url }}"
+                                   class="btn btn-sm btn-outline-success"
+                                   target="_blank">
+                                   View Certificate
+                                </a>
+                            {% else %}
+                                <span class="text-muted">Not Uploaded</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                </table>
+
+                <!-- Edit Button -->
+                <div class="text-end mt-3">
+                    <a href="{% url 'edit_teacher_profile' %}"
+                       class="btn btn-primary">
+                        Edit Profile
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

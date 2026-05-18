@@ -1,0 +1,132 @@
+{% extends 'admin/page.html' %}
+
+{% block content %}
+<div class="container py-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+
+            <div class="card shadow-sm border-0">
+
+                <!-- Header -->
+                <div class="text-center pt-4">
+                    <h4 class="fw-semibold text-primary">
+                        Student Reviews & Parent Remarks
+                    </h4>
+                </div>
+
+                <div class="card-body p-4">
+
+                    {% if records %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped align-middle text-center">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Sl No</th>
+                                    <th>Student</th>
+                                    <th>Created By</th>
+                                    <th>Review</th>
+                                    <th>Review Status</th>
+                                    <th>Parent Remark</th>
+                                    <th>Remark Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for r in records %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+
+                                    <td>
+                                        {{ r.student.user.first_name }}
+                                        {{ r.student.user.last_name }}
+                                    </td>
+
+                                    <td>{{ r.created_by.username }}</td>
+
+                                    <td>{{ r.review|default:"-" }}</td>
+
+                                    <td>
+                                        <span class="badge 
+                                            {% if r.review_status == 'approved' %}bg-success
+                                            {% elif r.review_status == 'rejected' %}bg-danger
+                                            {% else %}bg-warning text-dark{% endif %}">
+                                            {{ r.review_status|title }}
+                                        </span>
+                                    </td>
+
+                                    <td>{{ r.remark|default:"-" }}</td>
+
+                                    <td>
+                                        <span class="badge 
+                                            {% if r.remark_status == 'approved' %}bg-success
+                                            {% elif r.remark_status == 'rejected' %}bg-danger
+                                            {% else %}bg-warning text-dark{% endif %}">
+                                            {{ r.remark_status|title }}
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <form method="post"
+                                              action="{% url 'admin_update_review_remark' r.id %}">
+                                            {% csrf_token %}
+
+                                            <select name="review_status"
+                                                    class="form-select form-select-sm mb-2">
+                                                <option value="pending"
+                                                    {% if r.review_status == 'pending' %}selected{% endif %}>
+                                                    Review: Pending
+                                                </option>
+                                                <option value="approved">Review: Approved</option>
+                                                <option value="rejected">Review: Rejected</option>
+                                            </select>
+
+                                            <select name="remark_status"
+                                                    class="form-select form-select-sm mb-2">
+                                                <option value="pending"
+                                                    {% if r.remark_status == 'pending' %}selected{% endif %}>
+                                                    Remark: Pending
+                                                </option>
+                                                <option value="approved">Remark: Approved</option>
+                                                <option value="rejected">Remark: Rejected</option>
+                                            </select>
+
+                                            <button type="submit"
+                                                    class="btn btn-sm btn-primary w-100">
+                                                Update
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                        <div class="alert alert-info text-center">
+                            No records found
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .card {
+        border-radius: 14px;
+        background-color: #ffffff;
+    }
+    .badge {
+        font-size: 0.8rem;
+    }
+    .form-select-sm {
+        border-radius: 6px;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'teacher/page.html' %}
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white text-center">
+            <h4 class="mb-0">My Salary Details</h4>
+        </div>
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle text-center">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>Month</th>
+                            <th>Amount</th>
+                            <th>Payment Mode</th>
+                            <th>Account Holder</th>
+                            <th>Account Number</th>
+                            <th>Paid Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for salary in salaries %}
+                        <tr>
+                            <td class="fw-semibold">{{ salary.month }}</td>
+                            <td class="text-success fw-bold">₹{{ salary.amount }}</td>
+                            <td>
+                                <span class="badge bg-info text-dark">
+                                    {{ salary.payment_mode|title }}
+                                </span>
+                            </td>
+                            <td>{{ salary.account_holder_name }}</td>
+                            <td>XXXXXX{{ salary.account_number|slice:"-4:" }}</td>
+                            <td>{{ salary.paid_date }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-muted py-4">
+                                No salary paid yet.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

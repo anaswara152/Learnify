@@ -1,0 +1,116 @@
+{% extends 'admin/page.html' %}
+{% block content %}
+
+<body class="bg-light">
+
+<div class="container py-2 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="card shadow">
+                <div class="text-center pt-4">
+                    <h4 class="fw-semibold text-primary">Teacher Details</h4>
+                </div>
+
+                <div class="card-body">
+                    {% for teacher in d %}
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Full Name</th>
+                            <td>{{ teacher.user.first_name }} {{ teacher.user.last_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Username</th>
+                            <td>{{ teacher.user.username }}</td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td>{{ teacher.user.email }}</td>
+                        </tr>
+                        <tr>
+                            <th>Phone</th>
+                            <td>{{ teacher.phone }}</td>
+                        </tr>
+                        <tr>
+                            <th>Gender</th>
+                            <td>{{ teacher.gender }}</td>
+                        </tr>
+                        <tr>
+                            <th>ID</th>
+                            <td><a href="{{teacher.id_card.url}}">Open</a></td>
+                        </tr>
+                        {% if teacher.certificates %}
+                            <tr>
+                                <th>Certificates</th>
+                                <td><a href="{{teacher.certificates.url}}">Open</a></td>
+                            </tr>
+                        {% endif %}    
+                        <tr>
+                            <th>Qualification</th>
+                            <td>{{ teacher.qualification }}</td>
+                        </tr>
+                        <tr>
+                            <th>Experience</th>
+                            <td>{{ teacher.experience }} years</td>
+                        </tr>
+                        <tr>
+                            <th>Subjects</th>
+                            <td>
+                                {% for sub in teacher.subjects.all %}
+                                    <span >{{ sub.subjectname }}</span>
+                                {% empty %}
+                                    <span class="text-muted">No subjects assigned</span>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <th>Status</th>
+                            <td>
+                                 {% if teacher.status == 'pending' %}
+                                <span>
+                                   <a href="{% url 'approve_teachers' teacher.id %}" class="btn btn-primary">Approve</a>
+                                   <a href="{% url 'reject_teachers' teacher.id %}" class="btn btn-danger">Remove</a>
+                                </span>
+                                {% else %}
+                                   <span>
+                                    {{ teacher.status }}
+                                </span>
+                                {% endif %}
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Action</th>
+                            <td>
+                                 {% if teacher.status == 'approved' %}
+                                <span>
+                                   <a href="{% url 'block_teachers' teacher.id %}" class="btn btn-warning" onclick="return confirm('Blocking {{teacher.user.first_name}}')">Block</a></span>
+
+                                 {% elif teacher.status == 'blocked'  %}
+                                 <span>
+                                   <a href="{% url 'unblock_teachers' teacher.id %}" class="btn btn-light"  onclick="return confirm('Unblock {{teacher.user.first_name}}')">Unblock</a>
+                                </span>
+                                  {% else %}
+                                   <span>
+                                    {{ teacher.status }}
+                                </span>
+                                {% endif %}
+
+
+                            </td>
+                           
+                           
+                        </tr>
+                        <tr>
+                            <th>Salary<th>
+                                 
+                               <a href="{% url 'add_teacher_salary' %}">add salary</a>
+                            
+                        </tr>
+                    </table>
+                    {% endfor %}
+                </div>
+
+                <div class="card-footer text-center">
+{% endblock %}

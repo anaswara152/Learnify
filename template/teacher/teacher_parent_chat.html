@@ -1,0 +1,60 @@
+{% extends 'teacher/page.html' %}
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="card shadow p-4">
+
+        <h4 class="text-center text-primary mb-4">
+            Chat with {{ parent.user.first_name }} {{ parent.user.last_name }}
+        </h4>
+
+        <!-- Chat Messages -->
+        <div class="border rounded p-3 mb-3"
+             style="height:400px; overflow-y:auto; background:#f8f9fa;">
+
+            {% for msg in messages %}
+
+                <div class="mb-3">
+
+                    <strong>{{ msg.sender.username }}</strong> :
+                    {{ msg.content }}
+
+                    <div class="small text-muted">
+                        {{ msg.timestamp|date:"d M Y H:i" }}
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <div class="text-center text-muted">
+                    No messages yet. Start the conversation!
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+        <!-- Send Message Form -->
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="input-group">
+                <textarea name="content"
+                          class="form-control"
+                          placeholder="Type your message..."
+                          required></textarea>
+
+                <button type="submit" class="btn btn-primary">
+                    Send
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

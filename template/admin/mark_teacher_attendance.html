@@ -1,0 +1,118 @@
+{% extends 'admin/page.html' %}
+
+{% block content %}
+<div class="container py-2 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 col-sm-12">
+
+            <div class="card shadow-sm border-0">
+
+                <!-- Header -->
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h4 class="fw-semibold mb-0">
+                        Teacher Attendance
+                    </h4>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <!-- Date Selector -->
+                    <form method="get" class="text-center mb-4">
+                        <label class="fw-semibold me-2">Select Date:</label>
+                        <input type="date"
+                               name="date"
+                               value="{{ selected_date|date:'Y-m-d' }}"
+                               class="form-control d-inline-block w-auto">
+                        <button type="submit"
+                                class="btn btn-outline-primary ms-2">
+                            View
+                        </button>
+                    </form>
+
+                    <hr>
+
+                    <!-- Attendance Form -->
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden"
+                               name="date"
+                               value="{{ selected_date|date:'Y-m-d' }}">
+
+                        <h6 class="text-center fw-semibold mb-3">
+                            Attendance for {{ selected_date|date:"d M Y" }}
+                        </h6>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped text-center align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Teacher</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for teacher in teachers %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>
+                                            {{ teacher.user.first_name }}
+                                            {{ teacher.user.last_name }}
+                                        </td>
+                                        <td>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input"
+                                                       type="radio"
+                                                       name="status_{{ teacher.id }}"
+                                                       value="present"
+                                                       {% if teacher.today_status == 'present' %}checked{% endif %}>
+                                                <label class="form-check-label text-success fw-semibold">
+                                                    Present
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input"
+                                                       type="radio"
+                                                       name="status_{{ teacher.id }}"
+                                                       value="absent"
+                                                       {% if teacher.today_status == 'absent' %}checked{% endif %}>
+                                                <label class="form-check-label text-danger fw-semibold">
+                                                    Absent
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button type="submit"
+                                    class="btn btn-primary px-5">
+                                Save Attendance
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .card {
+        border-radius: 14px;
+        background-color: #ffffff;
+    }
+    .form-control {
+        border-radius: 8px;
+    }
+</style>
+{% endblock %}
