@@ -5,8 +5,100 @@
 .page-content{
     padding-bottom:90px;
 }
-</style>
 
+.registration-card{
+    border:none;
+    border-radius:15px;
+}
+
+.registration-card .card-header{
+    background:#fff;
+    border:none;
+    padding:30px 30px 10px;
+}
+
+.registration-card .card-body{
+    padding:30px;
+}
+
+.form-control,
+.custom-file-label{
+    height:48px;
+    border-radius:8px;
+}
+
+.custom-file-label{
+    line-height:34px;
+}
+
+textarea.form-control{
+    height:auto;
+}
+
+.section-title{
+    font-size:15px;
+    font-weight:600;
+    color:#495057;
+    margin-bottom:12px;
+}
+
+.btn-register{
+    border-radius:8px;
+    padding:12px;
+    font-size:17px;
+    font-weight:600;
+}
+
+.subject-box{
+    height:170px;
+}
+
+.form-control:focus,
+.custom-file-input:focus~.custom-file-label{
+    box-shadow:none;
+    border-color:#007bff;
+}
+
+.card-footer{
+    background:#fff;
+    border:none;
+
+    
+}
+
+.custom-file-label{
+    border-radius:10px;
+    height:48px;
+    line-height:32px;
+    cursor:pointer;
+}
+
+.custom-file-input:focus~.custom-file-label{
+    border-color:#007bff;
+    box-shadow:none;
+}
+
+.subject-box{
+    min-height:170px;
+    border-radius:10px;
+}
+
+.btn-register{
+    border-radius:10px;
+    padding:12px;
+    font-size:17px;
+    font-weight:600;
+}
+
+.form-control{
+    border-radius:10px;
+}
+
+.form-control:focus{
+    box-shadow:none;
+    border-color:#007bff;
+}
+</style>
 <div class="container py-4 mb-5">
     <div class="row justify-content-center">
         <div class="col-lg-6 col-md-8 col-sm-10">
@@ -79,37 +171,27 @@
                                    required>
                         </div>
 
-                        <div class="form-group">
-                            <label class="font-weight-bold d-block">
-                                Gender
-                            </label>
+<div class="form-group text-center">
 
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input"
-                                       type="radio"
-                                       name="gender"
-                                       id="male"
-                                       value="Male"
-                                       required>
+    <label class="font-weight-bold d-block mb-3">
+        Gender
+    </label>
 
-                                <label class="form-check-label" for="male">
-                                    Male
-                                </label>
-                            </div>
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
 
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input"
-                                       type="radio"
-                                       name="gender"
-                                       id="female"
-                                       value="Female">
+        <label class="btn btn-outline-primary">
+            <input type="radio" name="gender" value="Male" required>
+            <i class="fas fa-mars mr-1"></i> Male
+        </label>
 
-                                <label class="form-check-label" for="female">
-                                    Female
-                                </label>
-                            </div>
+        <label class="btn btn-outline-primary">
+            <input type="radio" name="gender" value="Female" required>
+            <i class="fas fa-venus mr-1"></i> Female
+        </label>
 
-                        </div>
+    </div>
+
+</div>
 
                         <div class="form-group">
                             <input type="text"
@@ -151,39 +233,56 @@
                                    placeholder="Experience (Years)"
                                    required>
                         </div>
+<div class="form-group">
 
-                        <div class="form-group">
-                            <label class="font-weight-bold">
-                                ID Card
-                            </label>
-                            <input type="file"
-                                   class="form-control-file"
-                                   id="id_card"
-                                   name="id_card"
-                                   required>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="font-weight-bold">
-                                Certificate
-                            </label>
-                            <input type="file"
-                                   class="form-control-file"
-                                   id="certificates"
-                                   name="certificates"
-                                   required>
-                        </div>
+    <div class="custom-file">
+        <input type="file"
+               class="custom-file-input"
+               id="id_card"
+               name="id_card"
+               required>
 
-                        <div class="form-group">
-                            <label class="font-weight-bold">
-                                Profile Picture
-                            </label>
-                            <input type="file"
-                                   class="form-control-file"
-                                   id="profile_picture"
-                                   name="profile_picture"
-                                   required>
-                        </div>
+        <label class="custom-file-label" for="id_card">
+            <i class="fas fa-id-card mr-2"></i>
+            Upload ID Card
+        </label>
+    </div>
+</div>
+
+<div class="form-group">
+
+
+    <div class="custom-file">
+        <input type="file"
+               class="custom-file-input"
+               id="certificates"
+               name="certificates"
+               required>
+
+        <label class="custom-file-label" for="certificates">
+            <i class="fas fa-certificate mr-2"></i>
+            Upload Certificate
+        </label>
+    </div>
+</div>
+<div class="form-group">
+
+
+    <div class="custom-file">
+        <input type="file"
+               class="custom-file-input"
+               id="profile_picture"
+               name="profile_picture"
+               accept="image/*"
+               required>
+
+        <label class="custom-file-label" for="profile_picture">
+            <i class="fas fa-camera mr-2"></i>
+            Choose Profile Photo
+        </label>
+    </div>
+</div>
 
                         <div class="form-group">
                             <select class="form-control"
@@ -220,5 +319,10 @@
         </div>
     </div>
 </div>
-
+<script>
+  $('.custom-file-input').on('change', function () {
+    var fileName = $(this).val().split('\\').pop();
+    $(this).next('.custom-file-label').html(fileName);
+});
+</script>
 {% endblock %}
